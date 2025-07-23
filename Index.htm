@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive AI Prompting Cheat Sheet</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --tech-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --success-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .gradient-bg {
+            background: var(--primary-gradient);
+        }
+
+        .tech-gradient {
+            background: var(--tech-gradient);
+        }
+
+        .secondary-gradient {
+            background: var(--secondary-gradient);
+        }
+
+        .success-gradient {
+            background: var(--success-gradient);
+        }
+
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-content.active {
+            max-height: 500px;
+        }
+
+        .mind-map-node {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .mind-map-node:hover {
+            transform: scale(1.1);
+        }
+
+        .playground-textarea {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .role-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .role-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .role-card:hover::before {
+            left: 100%;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 1000;
+        }
+
+        .progress-tracker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--tech-gradient);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans">
+    <div class="progress-tracker" id="progressBar"></div>
+
+    <!-- Header -->
+    <header class="gradient-bg text-white py-16 px-6">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-5xl font-bold mb-4 fade-in-up">
+                <i class="fas fa-brain mr-3"></i>
+                AI Prompting Cheat Sheet
+            </h1>
+            <p class="text-xl opacity-90 mb-8 max-w-3xl mx-auto">
+                Master AI prompting across all enterprise roles. From basic concepts to advanced engineering techniques.
+            </p>
+            <div class="flex justify-center gap-4 flex-wrap">
+                <span class="px-4 py-2 bg-white bg-opacity-20 rounded-full text-sm">Marketing</span>
+                <span class="px-4 py-2 bg-white bg-opacity-20 rounded-full text-sm">Sales</span>
+                <span class="px-4 py-2 bg-white bg-opacity-20 rounded-full text-sm">Product</span>
+                <span class="px-4 py-2 bg-white bg-opacity-20 rounded-full text-sm">Engineering</span>
+                <span class="px-4 py-2 bg-white bg-opacity-20 rounded-full text-sm">HR</span>
+                <span class="px-4 py-2 bg-white bg-opacity-20 rounded-full text-sm">Leadership</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- What is a Prompt -->
+    <section class="py-16 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-question-circle text-blue-600"></i>
+                    What is a Prompt?
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    A prompt is the message you send to an AI tool to get the help you need. Think of it like texting your super-smart assistant!
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <div class="glassmorphism p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                        Simple Prompt Formula
+                    </h3>
+                    <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-6 rounded-lg mb-4">
+                        <code class="text-lg">"Hey AI, you are [ROLE]. Help me [TASK]. Make it [TONE/GOAL]."</code>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg">
+                        <p class="font-semibold text-gray-700 mb-2">Example:</p>
+                        <p class="italic text-gray-600">"Hey AI, you are a customer support expert. Help me write an empathetic response to an upset customer, focused on resolution."</p>
+                    </div>
+                </div>
+
+                <div class="glassmorphism p-8 rounded-2xl">
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800">
+                        <i class="fas fa-magic text-purple-500 mr-2"></i>
+                        Pro Tips
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span>Be specific about the output format</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span>Set the tone and style clearly</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span>Provide context and constraints</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                            <span>Iterate and refine your prompts</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- Advanced Prompting Frameworks Section -->
+<section id="frameworks" class="content-section">
+    <div class="container">
+        <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-question-circle text-blue-600"></i>
+                    Promting Framewoks
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Choose the right framework for your needs
+                </p>
+            </div>
+        </p>
+
+        <!-- Tab Navigation -->
+        <div class="framework-tabs">
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="risen">RISEN</button>
+                <button class="tab-btn" data-tab="race">RACE</button>
+                <button class="tab-btn" data-tab="care">CARE</button>
+                <button class="tab-btn" data-tab="crispe">CRISPE</button>
+            </div>
+
+            <!-- RISEN Framework -->
+            <div class="tab-content active" id="risen">
+                <div class="framework-card">
+                    <div class="framework-header">
+                        <h3>🎯 RISEN Framework</h3>
+                        <div class="framework-badge">High Complexity</div>
+                    </div>
+                    <p class="framework-description">
+                        <strong>Role, Input, Scenario, Example, Narrowing</strong> - A structured approach for generating clear, high-quality AI outputs by defining the AI's role, clarifying input, specifying steps, supporting with evidence, and adding nuance.
+                    </p>
+                    
+                    <div class="framework-components">
+                        <div class="component" data-component="role">
+                            <div class="component-header">
+                                <span class="component-icon">👤</span>
+                                <h4>Role</h4>
+                            </div>
+                            <p>Define the AI's expertise and perspective</p>
+                        </div>
+                        <div class="component" data-component="input">
+                            <div class="component-header">
+                                <span class="component-icon">📥</span>
+                                <h4>Input</h4>
+                            </div>
+                            <p>Provide clear context and data</p>
+                        </div>
+                        <div class="component" data-component="scenario">
+                            <div class="component-header">
+                                <span class="component-icon">🎬</span>
+                                <h4>Scenario</h4>
+                            </div>
+                            <p>Set the situation and constraints</p>
+                        </div>
+                        <div class="component" data-component="example">
+                            <div class="component-header">
+                                <span class="component-icon">💡</span>
+                                <h4>Example</h4>
+                            </div>
+                            <p>Show desired output format</p>
+                        </div>
+                        <div class="component" data-component="narrowing">
+                            <div class="component-header">
+                                <span class="component-icon">🎯</span>
+                                <h4>Narrowing</h4>
+                            </div>
+                            <p>Add specific requirements and tone</p>
+                        </div>
+                    </div>
+
+                    <div class="framework-uses">
+                        <h4>Best For:</h4>
+                        <div class="use-cases">
+                            <span class="use-case">Legal Analysis</span>
+                            <span class="use-case">Market Research</span>
+                            <span class="use-case">Financial Analysis</span>
+                            <span class="use-case">Problem Solving</span>
+                        </div>
+                    </div>
+
+                    <div class="framework-example">
+                        <h4>Example Prompt:</h4>
+                        <div class="example-prompt">
+                            <strong>Role:</strong> You are a senior financial analyst<br>
+                            <strong>Input:</strong> Q3 revenue data showing 15% decline<br>
+                            <strong>Scenario:</strong> Board meeting tomorrow, need executive summary<br>
+                            <strong>Example:</strong> "Revenue declined due to [reason]. Recommend [action]"<br>
+                            <strong>Narrowing:</strong> Keep under 200 words, focus on actionable insights
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RACE Framework -->
+            <div class="tab-content" id="race">
+                <div class="framework-card">
+                    <div class="framework-header">
+                        <h3>🏁 RACE Framework</h3>
+                        <div class="framework-badge">Agile Operations</div>
+                    </div>
+                    <p class="framework-description">
+                        <strong>Role, Action, Context, Example</strong> - Craft prompts by specifying who the AI is, who it's responding for, the situation, and desired output format.
+                    </p>
+                    
+                    <div class="framework-components">
+                        <div class="component">
+                            <div class="component-header">
+                                <span class="component-icon">👤</span>
+                                <h4>Role</h4>
+                            </div>
+                            <p>Define AI's expertise and audience</p>
+                        </div>
+                        <div class="component">
+                            <div class="component-header">
+                                <span class="component-icon">⚡</span>
+                                <h4>Action</h4>
+                            </div>
+                            <p>Specify what needs to be done</p>
+                        </div>
+                        <div class="component">
+                            <div class="component-header">
+                                <span class="component-icon">🎯</span>
+                                <h4>Context</h4>
+                            </div>
+                            <p>Provide situational background</p>
+                        </div>
+                        <div class="component">
+                            <div class="component-header">
+                                <span class="component-icon">📝</span>
+                                <h4>Example</h4>
+                            </div>
+                            <p>Show desired format or style</p>
+                        </div>
+                    </div>
+
+                    <div class="framework-uses">
+                        <h4>Best For:</h4>
+                        <div class="use-cases">
+                            <span class="use-case">Product Optimization</span>
+                            <span class="use-case">Marketing Campaigns</span>
+                            <span class="use-case">Content Generation</span>
+                            <span class="use-case">Operations Execution</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARE Framework -->
+            <div class="tab-content" id="care">
+                <div class="framework-card">
+                    <div class="framework-header">
+                        <h3>🔄 CARE Framework</h3>
+                        <div class="framework-badge">Iterative & Analytical</div>
+                    </div>
+                    <p class="framework-description">
+                        <strong>Context, Action, Response, Evaluate</strong> - An iterative framework for improving AI outputs by providing context, asking clearly, refining responses, and evaluating usefulness.
+                    </p>
+                    
+                    <div class="framework-components">
+                        <div class="component">
+                            <div class="component-header">
+                                <span class="component-icon">📋</span>
+                                <h4>Context</h4>
+                            </div>
+                            <p>Ground the task with background</p>
+                        </div>
+                        <div class="component">
+                            <div class="component-header">
+                                <span class="component-icon">🎯</span>
+                                <h4>Action</h4>
+                            </div>
+                            <p>Focus the specific ask</p>
+                        </div>
+                        <div class="component">
+                            <div class="component-header">
+                                <span class="component-icon">💬</span>
+                                <h4>Response</h4>
+                            </div>
+                            <p>Review and refine the output</p>
+                        </div>
+                        <div class="component">
+                            <div class="component-header">
+                                <span class="component-icon">✅</span>
+                                <h4>Evaluate</h4>
+                            </div>
+                            <p>Assess and iterate for improvement</p>
+                        </div>
+                    </div>
+
+                    <div class="framework-uses">
+                        <h4>Best For:</h4>
+                        <div class="use-cases">
+                            <span class="use-case">Analytical Reports</span>
+                            <span class="use-case">Reduces AI Hallucinations 60-70%</span>
+                            <span class="use-case">Research Tasks</span>
+                            <span class="use-case">Complex Problem Solving</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CRISPE Framework -->
+            <div class="tab-content" id="crispe">
+                <div class="framework-card">
+                    <div class="framework-header">
+                        <h3>✨ CRISPE Framework</h3>
+                        <div class="framework-badge">Quality Control</div>
+                    </div>
+                    <p class="framework-description">
+                        <strong>Consistent, Relevant, Integrated, Scalable, Personal, Examples</strong> - A quality-check framework ensuring content and campaigns are strategically sound and audience-focused.
+                    </p>
+                    
+                    <div class="framework-components">
+                        <div class="component">
+                            <div class="component-header">
+                                <span class="component-icon">🎯</span>
+                                <h4>Consistent</h4>
+                            </div>
+                            <p>Maintain brand voice and standards</p>
+                        </div>
+                        <div class="component">
+                            <div class="component-header">
+                                <span class="component-icon">🔗</span>
+                                <h4>Relevant</h4>
+                            </div>
+                            <p>Address audience needs directly</p>
+                        </div>
+                        <div class="component">
+                            <div class="component-header">
+                                <span class="component-icon">🧩</span>
+                                <h4>Integrated</h4>
+                            </div>
+                            <p>Align with broader strategy</p>
+                        </div>
+                        <div class="component">
+                            <div class="component-header">
+                                <span class="component-icon">📈</span>
+                                <h4>Scalable</h4>
+                            </div>
+                            <p>Work across multiple channels</p>
+                        </div>
+                        <div class="component">
+                            <div class="component-header">
+                                <span class="component-icon">👥</span>
+                                <h4>Personal</h4>
+                            </div>
+                            <p>Connect with target audience</p>
+                        </div>
+                        <div class="component">
+                            <div class="component-header">
+                                <span class="component-icon">💡</span>
+                                <h4>Examples</h4>
+                            </div>
+                            <p>Provide concrete illustrations</p>
+                        </div>
+                    </div>
+
+                    <div class="framework-uses">
+                        <h4>Best For:</h4>
+                        <div class="use-cases">
+                            <span class="use-case">Digital Marketing</span>
+                            <span class="use-case">Copywriting</span>
+                            <span class="use-case">Technical Documentation</span>
+                            <span class="use-case">Brand Communication</span>
+                            <span class="use-case">UI/UX Optimization</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Advanced Frameworks Styles */
+.framework-tabs {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin-top: 2rem;
+}
+
+.tab-nav {
+    display: flex;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 0;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.tab-btn.active {
+    color: white;
+    background: rgba(255,255,255,0.1);
+}
+
+.tab-btn:hover {
+    color: white;
+    background: rgba(255,255,255,0.05);
+}
+
+.tab-content {
+    display: none;
+    padding: 2rem;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.framework-card {
+    max-width: 100%;
+}
+
+.framework-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.framework-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #2d3748;
+}
+
+.framework-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.framework-description {
+    color: #4a5568;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.framework-components {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.component {
+    background: #f7fafc;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 4px solid #667eea;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+}
+
+.component:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.component-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.component-icon {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
+.component h4 {
+    margin: 0;
+    color: #2d3748;
+    font-size: 1.1rem;
+}
+
+.component p {
+    margin: 0;
+    color: #718096;
+    font-size: 0.9rem;
+}
+
+.framework-uses {
+    margin-bottom: 2rem;
+}
+
+.framework-uses h4 {
+    color: #2d3748;
+    margin-bottom: 1rem;
+}
+
+.use-cases {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.use-case {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.framework-example {
+    background: #edf2f7;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 4px solid #38a169;
+}
+
+.framework-example h4 {
+    color: #2d3748;
+    margin-bottom: 1rem;
+}
+
+.example-prompt {
+    font-family: 'Courier New', monospace;
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    line-height: 1.6;
+    color: #2d3748;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .tab-nav {
+        flex-direction: column;
+    }
+    
+    .framework-components {
+        grid-template-columns: 1fr;
+    }
+    
+    .tab-content {
+        padding: 1rem;
+    }
+}
+</style>
+
+<script>
+// Tab Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active class from all buttons and contents
+            tabBtns.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+            
+            // Add active class to clicked button
+            btn.classList.add('active');
+            
+            // Show corresponding content
+            const targetTab = btn.getAttribute('data-tab');
+            document.getElementById(targetTab).classList.add('active');
+        });
+    });
+    
+    // Component hover effects
+    const components = document.querySelectorAll('.component');
+    components.forEach(component => {
+        component.addEventListener('click', () => {
+            component.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+                component.style.transform = 'translateY(-2px)';
+            }, 150);
+        });
+    });
+});
+</script>
+
+    
+<
+    <!-- Role-Based Examples -->
+    <section class="py-16 px-6 bg-gray-100">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-users text-green-600"></i>
+                    Role-Based Prompt Examples
+                </h2>
+                <p class="text-xl text-gray-600">Tailored prompts for every department in your organization</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Marketing -->
+                <div class="role-card bg-white rounded-xl shadow-lg p-6 card-hover">
+                    <div class="text-center mb-4">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-pink-500 to-red-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-bullhorn text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Marketing</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-gray-100" onclick="toggleAccordion('marketing1')">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold">Campaign Copy</span>
+                                <i class="fas fa-chevron-down transition-transform"></i>
+                            </div>
+                            <div id="marketing1" class="accordion-content mt-2">
+                                <p class="text-sm text-gray-600 italic">"You are a creative copywriter. Write 5 different email subject lines for our Black Friday sale, targeting millennial shoppers. Make them urgent but not spammy."</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-gray-100" onclick="toggleAccordion('marketing2')">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold">Social Media Strategy</span>
+                                <i class="fas fa-chevron-down transition-transform"></i>
+                            </div>
+                            <div id="marketing2" class="accordion-content mt-2">
+                                <p class="text-sm text-gray-600 italic">"You are a social media strategist. Create a 7-day Instagram content plan for a B2B SaaS company. Include post types, captions, and hashtag suggestions."</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-gray-100" onclick="toggleAccordion('marketing3')">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold">Audience Personas</span>
+                                <i class="fas fa-chevron-down transition-transform"></i>
+                            </div>
+                            <div id="marketing3" class="accordion-content mt-2">
+                                <p class="text-sm text-gray-600 italic">"You are a market researcher. Based on this customer survey data, create 3 detailed buyer personas with demographics, pain points, and preferred communication channels."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sales -->
+                <div class="role-card bg-white rounded-xl shadow-lg p-6 card-hover">
+                    <div class="text-center mb-4">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-handshake text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Sales</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-gray-100" onclick="toggleAccordion('sales1')">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold">Cold Outreach</span>
+                                <i class="fas fa-chevron-down transition-transform"></i>
+                            </div>
+                            <div id="sales1" class="accordion-content mt-2">
+                                <p class="text-sm text-gray-600 italic">"You are a B2B sales expert. Write a personalized LinkedIn message to a VP of Operations at a manufacturing company. Our product helps reduce operational costs. Keep it under 300 characters."</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-gray-100" onclick="toggleAccordion('sales2')">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold">Objection Handling</span>
+                                <i class="fas fa-chevron-down transition-transform"></i>
+                            </div>
+                            <div id="sales2" class="accordion-content mt-2">
+                                <p class="text-sm text-gray-600 italic">"You are a sales coach. Help me respond to this objection: 'Your solution is too expensive.' Provide 3 different response strategies with examples."</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-gray-100" onclick="toggleAccordion('sales3')">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold">Proposal Writing</span>
+                                <i class="fas fa-chevron-down transition-transform"></i>
+                            </div>
+                            <div id="sales3" class="accordion-content mt-2">
+                                <p class="text-sm text-gray-600 italic">"You are a proposal writer. Create an executive summary for a $50K software implementation project. Highlight ROI, timeline, and risk mitigation. Keep it to one page."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product -->
+                <div class="role-card bg-white rounded-xl shadow-lg p-6 card-hover">
+                    <div class="text-center mb-4">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-rocket text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Product</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-gray-100" onclick="toggleAccordion('product1')">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold">User Stories</span>
+                                <i class="fas fa-chevron-down transition-transform"></i>
+                            </div>
+                            <div id="product1" class="accordion-content mt-2">
+                                <p class="text-sm text-gray-600 italic">"You are a product manager. Convert this feature request into 5 detailed user stories with acceptance criteria: 'Users want to export their data in multiple formats.'"</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-gray-100" onclick="toggleAccordion('product2')">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold">Competitive Analysis</span>
+                                <i class="fas fa-chevron-down transition-transform"></i>
+                            </div>
+                            <div id="product2" class="accordion-content mt-2">
+                                <p class="text-sm text-gray-600 italic">"You are a product strategist. Analyze these 3 competitors' pricing models and suggest positioning for our premium tier. Format as strengths/weaknesses/opportunities table."</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-gray-100" onclick="toggleAccordion('product3')">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold">Feature Prioritization</span>
+                                <i class="fas fa-chevron-down transition-transform"></i>
+                            </div>
+                            <div id="product3" class="accordion-content mt-2">
+                                <p class="text-sm text-gray-600 italic">"You are a product owner. Score these 8 feature requests using RICE framework (Reach, Impact, Confidence, Effort). Present as a prioritized table with justifications."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Engineering -->
+                <div class="role-card bg-white rounded-xl shadow-lg p-6 card-hover">
+                    <div class="text-center mb-4">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-code text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Engineering</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-gray-100" onclick="toggleAccordion('engineering1')">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold">Code Review</span>
+                                <i class="fas fa-chevron-down transition-transform"></i>
+                            </div>
+                            <div id="engineering1" class="accordion-content mt-2">
+                                <p class="text-sm text-gray-600 italic">"You are a senior software engineer. Review this Python function for performance issues, security vulnerabilities, and code style. Suggest specific improvements with explanations."</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-gray-100" onclick="toggleAccordion('engineering2')">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold">Architecture Design</span>
+                                <i class="fas fa-chevron-down transition-transform"></i>
+                            </div>
+                            <div id="engineering2" class="accordion-content mt-2">
+                                <p class="text-sm text-gray-600 italic">"You are a solutions architect. Design a scalable microservices architecture for an e-commerce platform handling 1M+ daily users. Include database, caching, and API gateway considerations."</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-gray-100" onclick="toggleAccordion('engineering3')">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold">Documentation</span>
+                                <i class="fas fa-chevron-down transition-transform"></i>
+                            </div>
+                            <div id="engineering3" class="accordion-content mt-2">
+                                <p class="text-sm text-gray-600 italic">"You are a technical writer. Create comprehensive API documentation for this REST endpoint, including examples, error codes, and rate limiting information."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HR -->
+                <div class="role-card bg-white rounded-xl shadow-lg p-6 card-hover">
+                    <div class="text-center mb-4">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-users-cog text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Human Resources</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-gray-100" onclick="toggleAccordion('hr1')">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold">Job Descriptions</span>
+                                <i class="fas fa-chevron-down transition-transform"></i>
+                            </div>
+                            <div id="hr1" class="accordion-content mt-2">
+                                <p class="text-sm text-gray-600 italic">"You are an HR specialist. Create a compelling job description for a Senior UX Designer role. Include responsibilities, qualifications, and company culture elements. Make it inclusive and appealing."</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-gray-100" onclick="toggleAccordion('hr2')">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold">Performance Reviews</span>
+                                <i class="fas fa-chevron-down transition-transform"></i>
+                            </div>
+                            <div id="hr2" class="accordion-content mt-2">
+                                <p class="text-sm text-gray-600 italic">"You are an HR manager. Help me write constructive feedback for an employee who shows great technical skills but struggles with communication. Provide specific examples and improvement suggestions."</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-gray-100" onclick="toggleAccordion('hr3')">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold">Training Programs</span>
+                                <i class="fas fa-chevron-down transition-transform"></i>
+                            </div>
+                            <div id="hr3" class="accordion-content mt-2">
+                                <p class="text-sm text-gray-600 italic">"You are a learning and development specialist. Design a 30-day onboarding program for remote software developers. Include milestones, check-ins, and resource recommendations."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Leadership -->
+                <div class="role-card bg-white rounded-xl shadow-lg p-6 card-hover">
+                    <div class="text-center mb-4">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-gray-600 to-gray-800 rounded-full flex items-center justify-center">
+                            <i class="fas fa-chess-king text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">Leadership</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-gray-100" onclick="toggleAccordion('leadership1')">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold">Strategic Planning</span>
+                                <i class="fas fa-chevron-down transition-transform"></i>
+                            </div>
+                            <div id="leadership1" class="accordion-content mt-2">
+                                <p class="text-sm text-gray-600 italic">"You are a strategy consultant. Help me analyze these market trends and create a 3-year strategic plan for our SaaS company. Include growth opportunities, risks, and resource allocation."</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-gray-100" onclick="toggleAccordion('leadership2')">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold">Change Management</span>
+                                <i class="fas fa-chevron-down transition-transform"></i>
+                            </div>
+                            <div id="leadership2" class="accordion-content mt-2">
+                                <p class="text-sm text-gray-600 italic">"You are a change management expert. Create a communication plan for announcing a major organizational restructuring. Address concerns, timeline, and support resources."</p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg cursor-pointer hover:bg-gray-100" onclick="toggleAccordion('leadership3')">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold">Investor Relations</span>
+                                <i class="fas fa-chevron-down transition-transform"></i>
+                            </div>
+                            <div id="leadership3" class="accordion-content mt-2">
+                                <p class="text-sm text-gray-600 italic">"You are a CFO preparing for investor meetings. Create an executive summary of our Q3 performance highlighting key metrics, achievements, and forward-looking statements."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Prompt Playground -->
+    <section class="py-16 px-6 bg-gradient-to-r from-indigo-900 via-purple-900 to-pink-900">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-white mb-4">
+                    <i class="fas fa-play-circle text-yellow-400"></i>
+                    Live Prompt Playground
+                </h2>
+                <p class="text-xl text-gray-300">Experiment with prompts in real-time and see the magic happen</p>
+            </div>
+
+            <div class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-2xl p-8 border border-white border-opacity-20">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-4">
+                            <i class="fas fa-edit text-blue-400 mr-2"></i>
+                            Craft Your Prompt
+                        </h3>
+
+                        <!-- Framework Selector -->
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Choose Framework:</label>
+                            <select id="playgroundFramework" class="w-full p-3 bg-black bg-opacity-20 border border-white border-opacity-30 rounded-lg text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Custom Prompt</option>
+                                <option value="risen">RISEN Framework</option>
+                                <option value="care">CARE Framework</option>
+                            </select>
+                        </div>
+
+                        <!-- Role Selector -->
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Select Role Template:</label>
+                            <select id="playgroundRole" class="w-full p-3 bg-black bg-opacity-20 border border-white border-opacity-30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Choose a role...</option>
+                                <option value="marketing">Marketing Specialist</option>
+                                <option value="sales">Sales Professional</option>
+                                <option value="product">Product Manager</option>
+                                <option value="engineering">Software Engineer</option>
+                                <option value="hr">HR Specialist</option>
+                                <option value="leadership">Executive/Leader</option>
+                            </select>
+                        </div>
+
+                        <!-- Prompt Input -->
+                        <textarea id="promptInput" placeholder="Write your prompt here... Or use the framework and role selectors above to get started!" class="w-full h-32 p-4 bg-white bg-opacity-20 border border-white border-opacity-30 rounded-lg text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none playground-textarea"></textarea>
+
+                        <!-- Quick Actions -->
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <button onclick="addQuickPhrase('Be specific')" class="px-3 py-1 text-xs bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors">+ Be Specific</button>
+                            <button onclick="addQuickPhrase('Make it professional')" class="px-3 py-1 text-xs bg-purple-500 text-white rounded-full hover:bg-purple-600 transition-colors">+ Professional Tone</button>
+                            <button onclick="addQuickPhrase('Keep it concise')" class="px-3 py-1 text-xs bg-green-500 text-white rounded-full hover:bg-green-600 transition-colors">+ Concise</button>
+                            <button onclick="addQuickPhrase('Add examples')" class="px-3 py-1 text-xs bg-yellow-500 text-white rounded-full hover:bg-yellow-600 transition-colors">+ Examples</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-4">
+                            <i class="fas fa-lightbulb text-yellow-400 mr-2"></i>
+                            Prompt Analysis & Tips
+                        </h3>
+
+                        <div id="promptAnalysis" class="bg-white bg-opacity-10 rounded-lg p-6 min-h-64">
+                            <div class="text-center text-gray-400 py-8">
+                                <i class="fas fa-magic text-3xl mb-4 opacity-50"></i>
+                                <p>Start typing your prompt to see real-time analysis and suggestions!</p>
+                            </div>
+                        </div>
+
+                        <!-- Prompt Quality Score -->
+                        <div class="mt-6">
+                            <div class="flex items-center justify-between text-white mb-2">
+                                <span class="text-sm font-medium">Prompt Quality Score</span>
+                                <span id="qualityScore" class="text-sm font-bold">0/100</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div id="qualityBar" class="h-2 rounded-full transition-all duration-500 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex justify-center gap-4 mt-8">
+                    <button onclick="analyzePrompt()" class="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center">
+                        <i class="fas fa-search mr-2"></i>
+                        Analyze Prompt
+                    </button>
+                    <button onclick="generateExample()" class="px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-colors flex items-center">
+                        <i class="fas fa-wand-magic-sparkles mr-2"></i>
+                        Generate Example
+                    </button>
+                    <button onclick="savePrompt()" class="px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors flex items-center">
+                        <i class="fas fa-save mr-2"></i>
+                        Save Prompt
+                    </button>
+                </div>
+            </div>
+
+            <!-- Saved Prompts -->
+            <div class="mt-12">
+                <h3 class="text-2xl font-bold text-white mb-6 text-center">
+                    <i class="fas fa-bookmark text-yellow-400 mr-2"></i>
+                    Your Saved Prompts
+                </h3>
+                <div id="savedPrompts" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Saved prompts will be populated here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Practices & Tips -->
+    <section class="py-16 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-star text-yellow-500"></i>
+                    Advanced Prompting Best Practices
+                </h2>
+                <p class="text-xl text-gray-600">Level up your AI interactions with these pro techniques</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-blue-500">
+                    <div class="text-2xl mb-3">🎯</div>
+                    <h4 class="font-bold text-lg mb-2">Be Specific</h4>
+                    <p class="text-gray-600 text-sm">Instead of "summarize this," try "create a 3-bullet executive summary focusing on financial impact."</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-green-500">
+                    <div class="text-2xl mb-3">🎭</div>
+                    <h4 class="font-bold text-lg mb-2">Set the Tone</h4>
+                    <p class="text-gray-600 text-sm">Add personality: "Write like a Gen Z influencer" or "Use a consultative, executive tone."</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-purple-500">
+                    <div class="text-2xl mb-3">📋</div>
+                    <h4 class="font-bold text-lg mb-2">Format Constraints</h4>
+                    <p class="text-gray-600 text-sm">Specify output: "Format as a table," "Write in bullet points," "Create a JSON structure."</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-red-500">
+                    <div class="text-2xl mb-3">🔄</div>
+                    <h4 class="font-bold text-lg mb-2">Iterate & Refine</h4>
+                    <p class="text-gray-600 text-sm">Follow up with: "Make it shorter," "Add more technical detail," "Simplify for beginners."</p>
+                </div>
+            </div>
+
+            <!-- Advanced Techniques -->
+            <div class="bg-gradient-to-r from-gray-900 to-black rounded-2xl p-8 text-white">
+                <h3 class="text-2xl font-bold mb-6 text-center">
+                    <i class="fas fa-graduation-cap text-yellow-400 mr-2"></i>
+                    Advanced Techniques for Power Users
+                </h3>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white bg-opacity-10 p-6 rounded-lg">
+                        <h4 class="font-bold text-lg mb-3 text-yellow-400">Chain of Thought</h4>
+                        <p class="text-sm mb-3">Guide AI through step-by-step reasoning</p>
+                        <div class="bg-black bg-opacity-30 p-3 rounded text-xs font-mono">
+                            "Let's think step by step: 1) First, analyze the data 2) Then, identify patterns 3) Finally, provide recommendations"
+                        </div>
+                    </div>
+
+                    <div class="bg-white bg-opacity-10 p-6 rounded-lg">
+                        <h4 class="font-bold text-lg mb-3 text-blue-400">Few-Shot Learning</h4>
+                        <p class="text-sm mb-3">Provide examples to guide AI behavior</p>
+                        <div class="bg-black bg-opacity-30 p-3 rounded text-xs font-mono">
+                            "Example 1: Input → Output<br />Example 2: Input → Output<br />Now do: [Your input]"
+                        </div>
+                    </div>
+
+                    <div class="bg-white bg-opacity-10 p-6 rounded-lg">
+                        <h4 class="font-bold text-lg mb-3 text-green-400">System Messages</h4>
+                        <p class="text-sm mb-3">Set persistent context and constraints</p>
+                        <div class="bg-black bg-opacity-30 p-3 rounded text-xs font-mono">
+                            "You are an expert analyst. Always cite sources. Be concise but thorough. Use data to support claims."
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Common Pitfalls -->
+    <section class="py-16 px-6 bg-red-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-exclamation-triangle text-red-600"></i>
+                    Common Prompting Pitfalls
+                </h2>
+                <p class="text-xl text-gray-600">Avoid these mistakes for better AI interactions</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold text-red-600 mb-6 flex items-center">
+                        <i class="fas fa-times-circle mr-3"></i>
+                        Don't Do This
+                    </h3>
+
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-red-500 pl-4 py-2">
+                            <p class="font-semibold text-red-700">❌ "Help me with this"</p>
+                            <p class="text-gray-600 text-sm">Too vague - AI doesn't know what "this" is or how to help</p>
+                        </div>
+
+                        <div class="border-l-4 border-red-500 pl-4 py-2">
+                            <p class="font-semibold text-red-700">❌ "Write something about marketing"</p>
+                            <p class="text-gray-600 text-sm">No specific task, format, or outcome defined</p>
+                        </div>
+
+                        <div class="border-l-4 border-red-500 pl-4 py-2">
+                            <p class="font-semibold text-red-700">❌ "Make it better"</p>
+                            <p class="text-gray-600 text-sm">"Better" is subjective - specify what improvements you want</p>
+                        </div>
+
+                        <div class="border-l-4 border-red-500 pl-4 py-2">
+                            <p class="font-semibold text-red-700">❌ Single long paragraph with multiple requests</p>
+                            <p class="text-gray-600 text-sm">Confusing and hard to process - break into clear sections</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold text-green-600 mb-6 flex items-center">
+                        <i class="fas fa-check-circle mr-3"></i>
+                        Do This Instead
+                    </h3>
+
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-green-500 pl-4 py-2">
+                            <p class="font-semibold text-green-700">✅ "You are a marketing expert. Analyze this email campaign's open rates and suggest 3 specific improvements."</p>
+                            <p class="text-gray-600 text-sm">Clear role, task, and expected output</p>
+                        </div>
+
+                        <div class="border-l-4 border-green-500 pl-4 py-2">
+                            <p class="font-semibold text-green-700">✅ "Create a 5-slide presentation outline for our Q4 product launch, targeting enterprise clients."</p>
+                            <p class="text-gray-600 text-sm">Specific format, length, and audience defined</p>
+                        </div>
+
+                        <div class="border-l-4 border-green-500 pl-4 py-2">
+                            <p class="font-semibold text-green-700">✅ "Make this email more persuasive by adding social proof and urgency. Keep it under 200 words."</p>
+                            <p class="text-gray-600 text-sm">Specific improvements and constraints provided</p>
+                        </div>
+
+                        <div class="border-l-4 border-green-500 pl-4 py-2">
+                            <p class="font-semibold text-green-700">✅ Use RISEN or CARE frameworks</p>
+                            <p class="text-gray-600 text-sm">Structured approach ensures all elements are covered</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+      <!-- Tool Selection Guide -->
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-bold text-center mb-6">
+                    <i class="fas fa-compass text-blue-600 mr-2"></i>
+                    How to Choose the Right Tool
+                </h3>
+                <div class="grid md:grid-cols-3 gap-6 text-center">
+                    <div class="p-4">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-bullseye text-blue-600 text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">Define Your Goal</h4>
+                        <p class="text-gray-600 text-sm">What specific outcome do you need? Writing, analysis, images, code?</p>
+                    </div>
+                    <div class="p-4">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-clock text-green-600 text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">Consider Context</h4>
+                        <p class="text-gray-600 text-sm">Do you need real-time data, long context, or specialized knowledge?</p>
+                    </div>
+                    <div class="p-4">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-balance-scale text-purple-600 text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">Quality vs Speed</h4>
+                        <p class="text-gray-600 text-sm">Balance output quality with response time and cost constraints</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progress Tracker & Next Steps -->
+    <section class="py-16 px-6 gradient-bg text-white">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-8">
+                <i class="fas fa-rocket text-yellow-400 mr-3"></i>
+                Ready to Level Up Your AI Game?
+            </h2>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white bg-opacity-20 p-6 rounded-xl">
+                    <i class="fas fa-user-graduate text-4xl mb-4 text-yellow-400"></i>
+                    <h4 class="font-bold text-xl mb-2">Master the Basics</h4>
+                    <p class="opacity-90">Use RISEN or CARE frameworks consistently</p>
+                </div>
+                <div class="bg-white bg-opacity-20 p-6 rounded-xl">
+                    <i class="fas fa-users text-4xl mb-4 text-yellow-400"></i>
+                    <h4 class="font-bold text-xl mb-2">Share & Collaborate</h4>
+                    <p class="opacity-90">Build a prompt library with your team</p>
+                </div>
+                <div class="bg-white bg-opacity-20 p-6 rounded-xl">
+                    <i class="fas fa-chart-line text-4xl mb-4 text-yellow-400"></i>
+                    <h4 class="font-bold text-xl mb-2">Keep Improving</h4>
+                    <p class="opacity-90">Iterate, refine, and measure your results</p>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="bg-white bg-opacity-10 p-8 rounded-2xl backdrop-filter backdrop-blur-lg">
+                <h3 class="text-2xl font-bold mb-4">Final Thought</h3>
+                <p class="text-lg opacity-90 max-w-3xl mx-auto mb-6">
+                    "With great power comes great responsibility." Use AI to uplift your creativity, enhance teamwork, and empower smarter decisions.
+                    <strong>We're all AI Champions!</strong>
+                </p>
+                <div class="flex justify-center gap-4 flex-wrap">
+                    <span class="px-4 py-2 bg-white bg-opacity-20 rounded-full">
+                        <i class="fas fa-lightbulb mr-2"></i>
+                        Be Creative
+                    </span>
+                    <span class="px-4 py-2 bg-white bg-opacity-20 rounded-full">
+                        <i class="fas fa-handshake mr-2"></i>
+                        Collaborate
+                    </span>
+                    <span class="px-4 py-2 bg-white bg-opacity-20 rounded-full">
+                        <i class="fas fa-brain mr-2"></i>
+                        Think Smart
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-6 bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto text-center">
+            <p class="text-gray-400">
+                Interactive AI Prompting Cheat Sheet | Designed for Enterprise Excellence |
+                <i class="fas fa-heart text-red-500 mx-2"></i>
+                Built with AI
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Progress Bar
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Mind Map Node Information
+        const nodeData = {
+            prompt: {
+                title: "Prompt Structure",
+                description: "The complete message you send to AI, containing all necessary components for optimal results.",
+                examples: "A well-structured prompt includes role definition, clear task description, context, and output format specifications."
+            },
+            role: {
+                title: "Role Definition",
+                description: "Tell the AI what role it should take on to provide the most relevant and expert response.",
+                examples: "Examples: 'You are a marketing expert...', 'Act as a senior developer...', 'You are a customer service specialist...'"
+            },
+            context: {
+                title: "Context & Background",
+                description: "Provide relevant background information, constraints, and situational details.",
+                examples: "Include: target audience, company size, industry, current challenges, available resources, timeline constraints."
+            },
+            task: {
+                title: "Specific Task",
+                description: "Clearly define what you want the AI to do with the provided information.",
+                examples: "Examples: 'Analyze and summarize...', 'Create a strategy for...', 'Write a proposal that...', 'Generate 5 ideas for...'"
+            },
+            format: {
+                title: "Output Format",
+                description: "Specify exactly how you want the response structured and presented.",
+                examples: "Examples: 'Format as a table', 'Provide 5 bullet points', 'Write as email template', 'Create JSON structure'"
+            }
+        };
+
+        function showNodeInfo(nodeType) {
+            const info = nodeData[nodeType];
+            const infoPanel = document.getElementById('nodeInfo');
+            const title = document.getElementById('nodeTitle');
+            const description = document.getElementById('nodeDescription');
+            const examples = document.getElementById('nodeExamples');
+
+            title.textContent = info.title;
+            description.textContent = info.description;
+            examples.innerHTML = '<strong>Examples:</strong><br>' + info.examples;
+
+            infoPanel.style.opacity = '1';
+            infoPanel.style.transform = 'translateY(0)';
+        }
+
+        // Framework Switching
+        function switchFramework(framework) {
+            const tabs = ['risen', 'care', 'race', 'crispe'];
+            tabs.forEach(tab => {
+            const tabElement = document.getElementById(`${tab}Tab`);
+            const contentElement = document.getElementById(`${tab}Framework`);
+                    if (framework === tab) {
+                        tabElement.classList.add('bg-blue-600', 'text-white');
+                        tabElement.classList.remove('text-gray-600');
+                        contentElement.classList.remove('hidden');
+                        } else {
+                        tabElement.classList.remove('bg-blue-600', 'text-white');
+                        tabElement.classList.add('text-gray-600');
+                        contentElement.classList.add('hidden');
+                    }
+                });
+            }
+
+
+        // Accordion Functionality
+        function toggleAccordion(elementId) {
+            const content = document.getElementById(elementId);
+            const icon = content.parentElement.querySelector('i');
+
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.classList.add('active');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Prompt Playground Functionality
+        const roleTemplates = {
+            marketing: "You are a creative marketing specialist with expertise in digital campaigns and brand messaging. ",
+            sales: "You are an experienced B2B sales professional with a track record of closing enterprise deals. ",
+            product: "You are a senior product manager with deep understanding of user experience and market strategy. ",
+            engineering: "You are a senior software engineer with expertise in system architecture and best practices. ",
+            hr: "You are an HR specialist focused on talent development and organizational culture. ",
+            leadership: "You are an executive leader with strategic vision and experience in organizational transformation. "
+        };
+
+        const frameworkTemplates = {
+            risen: {
+                structure: "Role: [Define AI's expertise]\nInput: [Provide your content/data]\nSteps: [Outline the process]\nExpectation: [Define output format]\nNarrowing: [Set constraints]",
+                example: "Role: You are a marketing analyst\nInput: Our Q3 campaign data shows 15% CTR, 3% conversion\nSteps: 1) Compare to industry benchmarks 2) Identify improvement areas 3) Suggest optimizations\nExpectation: Present findings in a table with recommendations\nNarrowing: Focus on top 3 actionable insights, keep under 200 words"
+            },
+            care: {
+                structure: "Context: [Background situation]\nAction: [What AI should do]\nResult: [Desired outcome]\nExample: [Sample format/style]",
+                example: "Context: We're launching a fitness app for busy professionals\nAction: Generate creative app names that suggest speed and results\nResult: 10 catchy names with brief explanations\nExample: 'QuickFit Pro' - suggests professional-grade quick workouts"
+            }
+        };
+
+        function updatePlaygroundPrompt() {
+            const framework = document.getElementById('playgroundFramework').value;
+            const role = document.getElementById('playgroundRole').value;
+            const promptInput = document.getElementById('promptInput');
+
+            let newPrompt = '';
+
+            if (role && roleTemplates[role]) {
+                newPrompt += roleTemplates[role];
+            }
+
+            if (framework && frameworkTemplates[framework]) {
+                newPrompt += '\n\n' + frameworkTemplates[framework].structure;
+            }
+
+            if (newPrompt) {
+                promptInput.value = newPrompt;
+                analyzePrompt();
+            }
+        }
+
+        // Event listeners for playground
+        document.getElementById('playgroundFramework').addEventListener('change', updatePlaygroundPrompt);
+        document.getElementById('playgroundRole').addEventListener('change', updatePlaygroundPrompt);
+        document.getElementById('promptInput').addEventListener('input', analyzePrompt);
+
+        function addQuickPhrase(phrase) {
+            const promptInput = document.getElementById('promptInput');
+            const currentValue = promptInput.value;
+            const newValue = currentValue + (currentValue ? '. ' : '') + phrase;
+            promptInput.value = newValue;
+            analyzePrompt();
+        }
+
+        function analyzePrompt() {
+            const prompt = document.getElementById('promptInput').value;
+            const analysisDiv = document.getElementById('promptAnalysis');
+            const qualityScore = document.getElementById('qualityScore');
+            const qualityBar = document.getElementById('qualityBar');
+
+            if (!prompt.trim()) {
+                analysisDiv.innerHTML = `
+                    <div class="text-center text-gray-400 py-8">
+                        <i class="fas fa-magic text-3xl mb-4 opacity-50"></i>
+                        <p>Start typing your prompt to see real-time analysis and suggestions!</p>
+                    </div>
+                `;
+                qualityScore.textContent = '0/100';
+                qualityBar.style.width = '0%';
+                return;
+            }
+
+            // Simple prompt analysis
+            let score = 0;
+            const analysis = [];
+
+            // Check for role definition
+            if (prompt.toLowerCase().includes('you are') || prompt.toLowerCase().includes('act as')) {
+                score += 20;
+                analysis.push('<div class="flex items-center text-green-400 mb-2"><i class="fas fa-check mr-2"></i>Role defined</div>');
+            } else {
+                analysis.push('<div class="flex items-center text-yellow-400 mb-2"><i class="fas fa-exclamation mr-2"></i>Consider adding a role (e.g., "You are a...")</div>');
+            }
+
+            // Check for specificity
+            if (prompt.length > 50) {
+                score += 20;
+                analysis.push('<div class="flex items-center text-green-400 mb-2"><i class="fas fa-check mr-2"></i>Good detail level</div>');
+            } else {
+                analysis.push('<div class="flex items-center text-yellow-400 mb-2"><i class="fas fa-exclamation mr-2"></i>Add more specific details</div>');
+            }
+
+            // Check for format specification
+            if (prompt.toLowerCase().includes('format') || prompt.toLowerCase().includes('table') || prompt.toLowerCase().includes('list')) {
+                score += 20;
+                analysis.push('<div class="flex items-center text-green-400 mb-2"><i class="fas fa-check mr-2"></i>Output format specified</div>');
+            } else {
+                analysis.push('<div class="flex items-center text-yellow-400 mb-2"><i class="fas fa-exclamation mr-2"></i>Specify output format</div>');
+            }
+
+            // Check for constraints
+            if (prompt.toLowerCase().includes('words') || prompt.toLowerCase().includes('bullets') || prompt.toLowerCase().includes('sentences')) {
+                score += 20;
+                analysis.push('<div class="flex items-center text-green-400 mb-2"><i class="fas fa-check mr-2"></i>Constraints provided</div>');
+            } else {
+                analysis.push('<div class="flex items-center text-yellow-400 mb-2"><i class="fas fa-exclamation mr-2"></i>Consider adding length/format constraints</div>');
+            }
+
+            // Check for action words
+            const actionWords = ['analyze', 'create', 'write', 'generate', 'summarize', 'explain', 'compare'];
+            const hasActionWord = actionWords.some(word => prompt.toLowerCase().includes(word));
+            if (hasActionWord) {
+                score += 20;
+                analysis.push('<div class="flex items-center text-green-400 mb-2"><i class="fas fa-check mr-2"></i>Clear action specified</div>');
+            } else {
+                analysis.push('<div class="flex items-center text-yellow-400 mb-2"><i class="fas fa-exclamation mr-2"></i>Use clear action words (analyze, create, write, etc.)</div>');
+            }
+
+            analysisDiv.innerHTML = `
+                <h4 class="font-bold text-white mb-4">Prompt Analysis</h4>
+                ${analysis.join('')}
+                <div class="mt-4 p-3 bg-blue-500 bg-opacity-20 rounded-lg">
+                    <p class="text-sm text-blue-200">
+                        <strong>Tip:</strong> ${getRandomTip()}
+                    </p>
+                </div>
+            `;
+
+            qualityScore.textContent = `${score}/100`;
+            qualityBar.style.width = `${score}%`;
+        }
+
+        function getRandomTip() {
+            const tips = [
+                "Add specific examples to guide the AI's output style.",
+                "Use the RISEN or CARE framework for structured prompts.",
+                "Specify your target audience to get more relevant responses.",
+                "Include constraints like word count or format preferences.",
+                "Try iterating with follow-up prompts to refine results.",
+                "Use role-playing to get expert-level responses.",
+                "Be specific about tone and style requirements."
+            ];
+            return tips[Math.floor(Math.random() * tips.length)];
+        }
+
+        function generateExample() {
+            const framework = document.getElementById('playgroundFramework').value;
+            const role = document.getElementById('playgroundRole').value;
+            const promptInput = document.getElementById('promptInput');
+
+            let example = '';
+            if (framework === 'risen' && role) {
+                example = getRisenExample(role);
+            } else if (framework === 'care' && role) {
+                example = getCareExample(role);
+            } else {
+                example = getGenericExample(role);
+            }
+
+            promptInput.value = example;
+            analyzePrompt();
+        }
+
+        function getRisenExample(role) {
+            const examples = {
+                marketing: "Role: You are a digital marketing strategist with expertise in social media campaigns\nInput: Our Instagram account has 10K followers but low engagement (2%)\nSteps: 1) Analyze current content performance 2) Identify engagement drivers 3) Create content strategy\nExpectation: Provide a 30-day content calendar with post types and captions\nNarrowing: Focus on increasing engagement to 5%, include hashtag recommendations",
+                sales: "Role: You are a B2B sales expert specializing in enterprise software\nInput: Prospect is a VP of Operations at 500-person manufacturing company\nSteps: 1) Research company pain points 2) Craft value proposition 3) Structure outreach message\nExpectation: Write personalized LinkedIn connection request and follow-up sequence\nNarrowing: Keep initial message under 300 characters, focus on operational efficiency",
+                product: "Role: You are a senior product manager with expertise in user experience\nInput: User feedback shows confusion about our checkout process (40% abandonment rate)\nSteps: 1) Identify friction points 2) Prioritize improvements 3) Create optimization roadmap\nExpectation: Present findings in a prioritized improvement list with impact estimates\nNarrowing: Focus on quick wins that can be implemented in 2 weeks"
+            };
+            return examples[role] || examples.marketing;
+        }
+
+        function getCareExample(role) {
+            const examples = {
+                marketing: "Context: We're launching a premium skincare line targeting health-conscious millennials who value sustainability\nAction: Generate 10 creative product names that convey natural ingredients and effectiveness\nResult: List of names with brief rationale for each, focusing on memorability and brand alignment\nExample: 'PureGlow Botanicals' - suggests natural ingredients with visible results",
+                sales: "Context: Client objected to our pricing saying it's 30% higher than competitors\nAction: Help me craft a response that addresses price concerns while reinforcing value\nResult: 3 different response strategies with specific talking points\nExample: 'I understand price is important. Let me show you the ROI our other clients achieved...'",
+                product: "Context: Users are requesting a mobile app version of our web-based project management tool\nAction: Create detailed user stories for the core mobile functionality\nResult: 8-10 user stories with acceptance criteria and priority ranking\nExample: 'As a project manager, I want to approve tasks on mobile so I can stay responsive while traveling'"
+            };
+            return examples[role] || examples.marketing;
+        }
+
+        function getGenericExample(role) {
+            const examples = {
+                marketing: "You are a creative marketing specialist. Help me write compelling email subject lines for our Black Friday sale. Create 5 different options that feel urgent but not spammy, targeting millennial shoppers who value sustainability.",
+                sales: "You are an experienced B2B sales professional. Help me respond to this objection: 'Your solution seems too complex for our small team.' Provide 3 response strategies with specific examples.",
+                product: "You are a senior product manager. Analyze this user feedback data and create a prioritized feature roadmap. Focus on high-impact, low-effort improvements and present as a table with rationale.",
+                engineering: "You are a senior software architect. Review this database schema for a user management system. Identify potential performance issues and security vulnerabilities, then suggest specific improvements.",
+                hr: "You are an HR specialist. Help me create an inclusive job description for a Senior UX Designer role. Include essential qualifications, nice-to-haves, and compelling company culture elements.",
+                leadership: "You are a strategy consultant. Analyze these market trends and help me create a 3-year strategic plan for our SaaS company. Include growth opportunities, potential risks, and resource allocation recommendations."
+            };
+            return examples[role] || "You are an expert assistant. Help me create a comprehensive response to this business challenge. Provide specific, actionable recommendations with clear reasoning.";
+        }
+
+        // Save Prompt Functionality
+        function savePrompt() {
+            const prompt = document.getElementById('promptInput').value;
+            if (!prompt.trim()) {
+                alert('Please enter a prompt to save.');
+                return;
+            }
+
+            const savedPrompts = JSON.parse(localStorage.getItem('savedPrompts') || '[]');
+            const newPrompt = {
+                id: Date.now(),
+                content: prompt,
+                timestamp: new Date().toLocaleDateString(),
+                title: prompt.substring(0, 50) + (prompt.length > 50 ? '...' : '')
+            };
+
+            savedPrompts.unshift(newPrompt);
+            localStorage.setItem('savedPrompts', JSON.stringify(savedPrompts.slice(0, 10))); // Keep only 10 most recent
+
+            displaySavedPrompts();
+            alert('Prompt saved successfully!');
+        }
+
+        function displaySavedPrompts() {
+            const savedPrompts = JSON.parse(localStorage.getItem('savedPrompts') || '[]');
+            const container = document.getElementById('savedPrompts');
+
+            if (savedPrompts.length === 0) {
+                container.innerHTML = '<div class="col-span-full text-center text-gray-400 py-8">No saved prompts yet. Save some prompts to see them here!</div>';
+                return;
+            }
+
+            container.innerHTML = savedPrompts.map(prompt => `
+                <div class="bg-white bg-opacity-10 p-4 rounded-lg">
+                    <h4 class="font-bold text-white mb-2">${prompt.title}</h4>
+                    <p class="text-gray-300 text-sm mb-3 line-clamp-3">${prompt.content}</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-gray-400">${prompt.timestamp}</span>
+                        <div class="space-x-2">
+                            <button onclick="loadPrompt(${prompt.id})" class="px-3 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700">Load</button>
+                            <button onclick="deletePrompt(${prompt.id})" class="px-3 py-1 text-xs bg-red-600 text-white rounded hover:bg-red-700">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadPrompt(id) {
+            const savedPrompts = JSON.parse(localStorage.getItem('savedPrompts') || '[]');
+            const prompt = savedPrompts.find(p => p.id === id);
+            if (prompt) {
+                document.getElementById('promptInput').value = prompt.content;
+                analyzePrompt();
+                // Scroll to playground
+                document.getElementById('promptInput').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        function deletePrompt(id) {
+            if (confirm('Are you sure you want to delete this prompt?')) {
+                const savedPrompts = JSON.parse(localStorage.getItem('savedPrompts') || '[]');
+                const filteredPrompts = savedPrompts.filter(p => p.id !== id);
+                localStorage.setItem('savedPrompts', JSON.stringify(filteredPrompts));
+                displaySavedPrompts();
+            }
+        }
+
+        // Initialize saved prompts on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            displaySavedPrompts();
+
+            // Add some animation delays
+            const elements = document.querySelectorAll('.fade-in-up');
+            elements.forEach((el, index) => {
+                el.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+
+        // Add smooth scrolling for internal links
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A' && e.target.getAttribute('href').startsWith('#')) {
+                e.preventDefault();
+                const target = document.querySelector(e.target.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
+
